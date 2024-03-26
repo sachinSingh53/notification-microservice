@@ -1,6 +1,7 @@
-const { Config } = require('../config');
-const config = new Config();
-const amqp = require('amqplib');
+
+import amqp from 'amqplib';
+import {config} from '../config.js';
+
 
 async function createConnection() {
     const connection = await amqp.connect(`${config.RABBITMQ_ENDPOINT}`);
@@ -9,11 +10,11 @@ async function createConnection() {
     return channel;
 }
 
-function closeChannel(channel, connection) {
+function  closeChannel(channel, connection) {
     process.once('SIGINT', async () => {
         await channel.close();
         await connection.close();
     })
 }
 
-module.exports = { createConnection }
+export { createConnection };

@@ -1,9 +1,9 @@
-const express = require('express');
-const{start} = require('./server');
+import express from 'express';
+import {start} from './server.js'
 
-function init(){
+async function init() {
     const app = express();
-    start(app);
+    await start(app);
 }
 
 init();

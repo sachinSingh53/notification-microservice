@@ -1,5 +1,5 @@
-require('dotenv').config();
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 class Config {
     constructor() {
@@ -12,6 +12,6 @@ class Config {
     }
 }
 
+const config = new Config();
 
-
-module.exports = {Config};
+export {config}

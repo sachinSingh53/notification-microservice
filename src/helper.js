@@ -1,22 +1,27 @@
-const nodemailer = require('nodemailer');
-const { Config } = require('./config');
-const config = new Config();
-const Email = require('email-templates');
-const path = require('path');
+import nodemailer from 'nodemailer';
+import { config } from './config.js';
+import Email from 'email-templates';
+import path from 'path';
+import { winstonLogger } from '../../9-jobber-shared/src/logger.js';
+
+const log = winstonLogger('emailTemplates', 'debug');
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 async function emailTemplates(template, receiverEmail, locals) {
     try {
+        // Creating nodemailer transport using Gmail's SMTP
         const smtpTransport = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
-            port: 587,
+            service: 'gmail',
             auth: {
                 user: config.SENDER_EMAIL,
                 pass: config.SENDER_EMAIL_PASSWORD
             }
         });
+
+        // Creating Email instance
         const email = new Email({
             message: {
-                from: `Jobber App <${config.SENDER_EMAIL}>`
+                from: `Jobber App <${config.SENDER_EMAIL}>` // Use your Gmail email address here
             },
             send: true,
             preview: false,
@@ -33,19 +38,20 @@ async function emailTemplates(template, receiverEmail, locals) {
                     relativeTo: path.join(__dirname, '..', 'src/emails')
                 }
             }
-
         });
 
+        // Sending email using the specified template and locals
         await email.send({
             template: path.join(__dirname, '..', 'src/emails', template),
             message: { to: receiverEmail },
-            locals //these are the variables which will be used in email template
-        })
+            locals // Variables used in the email template
+        });
+
+        log.info(`(${template}) Email Sent Successfully`);
+
     } catch (err) {
-        console.log(err);
+        log.error('error in emailTemplates()', err);
     }
 }
 
-module.exports = {
-    emailTemplates
-}
+export { emailTemplates };

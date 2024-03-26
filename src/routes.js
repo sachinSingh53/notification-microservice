@@ -1,10 +1,9 @@
-const express = require('express');
+import express from 'express';
 
 const router = express.Router();
 
-
-router.get('/notification-health',(req,res)=>{
+router.get('/notification-health', (req, res) => {
     res.status(200).send('Notification service is running...');
-})
+});
 
-module.exports = router;
+export default router;
