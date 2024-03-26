@@ -39,7 +39,7 @@ async function emailTemplates(template, receiverEmail, locals) {
         await email.send({
             template: path.join(__dirname, '..', 'src/emails', template),
             message: { to: receiverEmail },
-            locals
+            locals //these are the variables which will be used in email template
         })
     } catch (err) {
         console.log(err);

@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+
 class Config {
     constructor() {
         this.NODE_ENV = process.env.NODE_ENV || '';
@@ -10,5 +11,7 @@ class Config {
         this.ELASTIC_SEARCH_URL = process.env.ELASTIC_SEARCH_URL || '';
     }
 }
+
+
 
 module.exports = {Config};
