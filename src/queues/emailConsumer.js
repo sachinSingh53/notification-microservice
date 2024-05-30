@@ -64,7 +64,7 @@ async function consumeOrderEmailMessages(channel) {
 
         // Consuming messages from the queue
         channel.consume(jobberQueue.queue, async (msg) => {
-            console.log(JSON.parse(msg.content.toString()));
+
             //send email
 
             const {
