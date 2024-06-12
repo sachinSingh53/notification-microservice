@@ -68,6 +68,8 @@ async function consumeOrderEmailMessages(channel) {
             //send email
 
             const {
+                sellerEmail,
+                buyerEmail,
                 receiverEmail,
                 username,
                 template,
@@ -92,6 +94,7 @@ async function consumeOrderEmailMessages(channel) {
                 message,
                 serviceFee,
                 total
+                
             } = JSON.parse(msg.content.toString());
 
             const locals = {
@@ -122,8 +125,8 @@ async function consumeOrderEmailMessages(channel) {
             };
 
             if (template === 'orderPlaced') {
-                await sendEmail('orderPlaced', receiverEmail, locals);
-                await sendEmail('orderReceipt', receiverEmail, locals);
+                await sendEmail('orderPlaced', sellerEmail, locals);
+                await sendEmail('orderReceipt', buyerEmail, locals);
             } else {
                 await sendEmail(template, receiverEmail, locals);
             }
