@@ -2,9 +2,9 @@ import nodemailer from 'nodemailer';
 import { config } from './config.js';
 import Email from 'email-templates';
 import path from 'path';
-import { winstonLogger } from '../../9-jobber-shared/src/logger.js';
+import { winstonLogger } from '@sachinsingh53/jobber-shared';
 
-const log = winstonLogger('emailTemplates', 'debug');
+const log = winstonLogger(`${config.ELASTIC_SEARCH_URL}`,'emailTemplates', 'debug');
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 async function emailTemplates(template, receiverEmail, locals) {

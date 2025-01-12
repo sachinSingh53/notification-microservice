@@ -1,11 +1,12 @@
 import 'express-async-errors';
 import { createConnection } from './queues/connection.js';
 import { consumeAuthEmailMessages, consumeOrderEmailMessages } from './queues/emailConsumer.js';
-import { winstonLogger } from '../../9-jobber-shared/src/logger.js';
+import { winstonLogger } from '@sachinsingh53/jobber-shared';
 import healthRoutes from './routes.js';
+import { config } from './config.js';
 
 
-const log = winstonLogger('Notification Server', 'debug');
+const log = winstonLogger(`${config.ELASTIC_SEARCH_URL}`,'Notification Server', 'debug');
 
 async function start(app) {
     startServer(app);
